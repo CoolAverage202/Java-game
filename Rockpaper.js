@@ -6,25 +6,37 @@ function getComputerChoice(){
         return "rock";
     } if (randomizeChoice === 2) {
     return "paper";
-    } else (randomizeChoice === 3) {
+    } else if (randomizeChoice === 3) {
     return "scissors";
     }
 }
 
-function getHumanChoice(){
-    const validChoices = ["rock", "paper", "scissors"]; // valid choices for the user to select from
-
-    let userChoice = prompt("Please enter your choice"); // user input
-
-    userChoice = userChoice.toLowerCase(); // convert user input to lowercase
-
-    if (validChoices.includes(userChoice)) {
-        return userChoice;
+function getHumanChoice() {
+    // Define an array with valid choices
+    const validChoices = ["rock", "paper", "scissors"];
+    
+    // Prompt the user for their choice
+    let userChoice = window.prompt("Please enter your choice (rock, paper, or scissors):");
+    
+    // Check if the user entered something
+    if (userChoice) {
+        // Convert the user choice to lowercase to ensure case-insensitivity
+        userChoice = userChoice.toLowerCase();
+        
+        // Check if the user choice is in the list of valid choices
+        if (validChoices.includes(userChoice)) {
+            // Return the valid user choice
+            return userChoice;
+        } else {
+            // If the choice is invalid, inform the user and prompt again
+            console.log("Invalid choice. Please enter rock, paper, or scissors.");
+            return getHumanChoice(); // Recursive call to prompt again
+        }
     } else {
-        console.log("Invalid choice. Please enter rock paper or scissors.")
-
-        return getHumanChoice();
+        // If no input was provided, inform the user and prompt again
+        console.log("No input provided. Please enter rock, paper, or scissors.");
+        return getHumanChoice(); // Recursive call to prompt again
     }
 }
 
-console.log(getHumanChoice()); // testing the getHumanChoice
+
