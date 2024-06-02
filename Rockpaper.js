@@ -39,4 +39,38 @@ function getHumanChoice() {
     }
 }
 
+    let humanScore = 0;
+    let computerScore = 0;
+
+    function playRound(humanChoice, computerChoice){
+        humanChoice = humanChoice.toLowerCase();
+
+        //proper win conditions for the game 
+        const winningCondition = {
+            rock: "scissors",
+            paper: "rock",
+            scissors: "paper"
+        }
+
+         // Check if it's a tie
+    if (humanChoice === computerChoice) {
+        console.log("It's a tie!");
+    } else if (winningCondition[humanChoice] === computerChoice) {
+        // Human wins
+        humanScore++;
+        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+    } else {
+        // Computer wins
+        computerScore++;
+        console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+    }
+     // Log scores
+        console.log(`Human Score: ${humanScore}`);
+        console.log(`Computer Score: ${computerScore}`);
+
+    }
+
+    console.log(playRound("rock", "scissors")); // Human wins
+
+
 
