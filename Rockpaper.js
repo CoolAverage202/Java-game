@@ -1,76 +1,88 @@
-function getComputerChoice(){
-    const compChoices = ["rock", "paper", "scissors"]; // let computer pick [rock, paper, scissors]
-    let randomizeChoice = Math.floor(Math.random() * compChoices.length) + 1 //randomize rock paper scissors
+// Global scope score variables
+let humanScore = 0;
+let computerScore = 0;
 
-    if (randomizeChoice === 1) {
-        return "rock";
-    } if (randomizeChoice === 2) {
-    return "paper";
-    } else if (randomizeChoice === 3) {
-    return "scissors";
-    }
+// Function to get computer's choice
+function getComputerChoice() {
+    const compChoices = ["rock", "paper", "scissors"];
+    let randomizeChoice = Math.floor(Math.random() * compChoices.length); 
+    return compChoices[randomizeChoice];
 }
 
+// Function to get human's choice
 function getHumanChoice() {
-    // Define an array with valid choices
     const validChoices = ["rock", "paper", "scissors"];
-    
-    // Prompt the user for their choice
     let userChoice = window.prompt("Please enter your choice (rock, paper, or scissors):");
-    
-    // Check if the user entered something
+
     if (userChoice) {
-        // Convert the user choice to lowercase to ensure case-insensitivity
         userChoice = userChoice.toLowerCase();
-        
-        // Check if the user choice is in the list of valid choices
         if (validChoices.includes(userChoice)) {
-            // Return the valid user choice
             return userChoice;
         } else {
-            // If the choice is invalid, inform the user and prompt again
             console.log("Invalid choice. Please enter rock, paper, or scissors.");
-            return getHumanChoice(); // Recursive call to prompt again
+            return getHumanChoice();
         }
     } else {
-        // If no input was provided, inform the user and prompt again
         console.log("No input provided. Please enter rock, paper, or scissors.");
-        return getHumanChoice(); // Recursive call to prompt again
+        return getHumanChoice();
     }
 }
 
-    let humanScore = 0;
-    let computerScore = 0;
+// Function to play a single round
+function playRound(humanChoice, computerChoice) {
+    const winningCondition = {
+        rock: "scissors",
+        paper: "rock",
+        scissors: "paper"
+    };
 
-    function playRound(humanChoice, computerChoice){
-        humanChoice = humanChoice.toLowerCase();
+    humanChoice = humanChoice.toLowerCase();
 
-        //proper win conditions for the game 
-        const winningCondition = {
-            rock: "scissors",
-            paper: "rock",
-            scissors: "paper"
+    console.log('human choice -> ', humanChoice)
+    console.log('computer choice ->', computerChoice)
+
+    if (humanChoice === computerChoice) {
+        return "It's a tie!";
+    } else if (winningCondition[humanChoice] === computerChoice) {
+        return `You win! ${humanChoice} beats ${computerChoice}`;
+    } else {
+        return `You lose! ${computerChoice} beats ${humanChoice}`;
+    }
+}
+console.log(playRound("rock", "scissors"));
+
+// Function to play the entire game
+function playGame() {
+    const rounds = 5;
+
+    for (let i = 0; i < rounds; i++) {
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
+        const result = playRound(humanChoice, computerChoice);
+
+        console.log(result);
+
+        if (result.includes("win")) {
+            humanScore++;
+        } else if (result.includes("lose")) {
+            computerScore++;
         }
 
-         // Check if it's a tie
-    if (humanChoice === computerChoice) {
-        console.log("It's a tie!");
-    } else if (winningCondition[humanChoice] === computerChoice) {
-        // Human wins
-        humanScore++;
-        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
-    } else {
-        // Computer wins
-        computerScore++;
-        console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-    }
-     // Log scores
+        console.log(`Round ${i + 1}:`);
         console.log(`Human Score: ${humanScore}`);
         console.log(`Computer Score: ${computerScore}`);
-
     }
 
-    console.log(playRound("rock", "scissors")); // Human wins
+    // Determine the final winner
+    if (humanScore > computerScore) {
+        console.log("Congratulations! You won the game!");
+    } else if (humanScore < computerScore) {
+        console.log("Sorry, you lost the game. Better luck next time!");
+    } else {
+        console.log("The game is a tie!");
+    }
+}
 
-
+// Start the game
+playGame();
 
