@@ -5,7 +5,7 @@ let computerScore = 0;
 const rockButton = document.querySelector('.rock');
 const paperButton = document.querySelector('.paper');
 const scissorsButton = document.querySelector('.scissors');
-const outcomeDiv = document.querySelector('.outcome');
+const outcomeDiv = document.querySelector('.outcomes');
 
 
 // Function to get computer's choice
@@ -50,12 +50,15 @@ function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
         const p = document.createElement("p");
         p.textContent = "It's a tie!";
+        outcomeDiv.appendChild(p);
     } else if (winningCondition[humanChoice] === computerChoice) {
         const p = document.createElement("p");
         p.textContent = `You win! ${humanChoice} beats ${computerChoice}`;
+        outcomeDiv.appendChild(p);
     } else {
         const p = document.createElement("p");
         p.textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
+        outcomeDiv.appendChild(p);
     }
 }
 console.log(playRound("rock", "scissors"));
@@ -88,19 +91,19 @@ function playGame() {
 }
 
 rockButton.addEventListener("click", () => {
-    const computerSelection = playRound();
-    const userSelection = 'rock';
-    playRound(userSelection, computerSelection);
+    const humanChoice = 'rock';
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
 });
 paperButton.addEventListener("click", () => {
-    const computerSelection = playRound();
-    const userSelection = 'paper';
-    playRound(userSelection, computerSelection);
+    const humanChoice = 'paper';
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
 });
 scissorsButton.addEventListener("click", () => {
-    const computerSelection = playRound();
-    const userSelection = 'scissors';
-    playRound(userSelection, computerSelection);
+    const humanChoice = 'scissors';
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
 });
 
 
